@@ -33,7 +33,8 @@
         "tslint": "tslint --type-check --fix --project .",
         "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
         "test": "npm run lint && npm run tslint && npm run unit",
-        "prepare": "npm run dist"
+        "prepare": "npm run dist",
+        "release": "npm publish --access public --registry  https://registry.npmjs.org/"
     },
     "repository": {
         "type": "git",
