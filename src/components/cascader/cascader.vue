@@ -377,7 +377,7 @@ export default {
             if (this.visible) {
                 if (!this.filterable) this.handleClose();
             } else {
-                if (this.customChar) {
+                if (this.allowInput && this.customChar) {
                     this.visible = this.query === this.customChar;
                 } else {
                     this.onFocus();
@@ -422,12 +422,12 @@ export default {
                 const oldVal = JSON.stringify(this.currentValue);
                 this.currentValue = [this.query];
                 this.emitValue(this.currentValue, oldVal);
-            }
-            if (this.customChar) {
-                this.visible = this.query === this.customChar;
-                if (this.visible) {
-                    this.query = "";
-                    this.$refs.input.value = "";
+                if (this.customChar) {
+                    this.visible = this.query === this.customChar;
+                    if (this.visible) {
+                        this.query = "";
+                        this.$refs.input.value = "";
+                    }
                 }
             }
         },
