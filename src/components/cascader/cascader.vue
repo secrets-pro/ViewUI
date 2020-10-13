@@ -45,7 +45,7 @@
             >
                 <div>
                     <Caspanel
-                        v-show="!filterable || (filterable && query === '')"
+                        v-show="showPanel"
                         ref="caspanel"
                         :prefix-cls="prefixCls"
                         :data="data"
@@ -112,6 +112,10 @@ export default {
     components: { iInput, Drop, Icon, Caspanel },
     directives: { clickOutside, TransferDom },
     props: {
+        customChar: {
+            type: String,
+            default: ""
+        },
         allowInput: {
             type: Boolean,
             default: false
@@ -212,6 +216,9 @@ export default {
         };
     },
     computed: {
+        showPanel() {
+            return !this.filterable || (this.filterable && this.query === "");
+        },
         classes() {
             return [
                 `${prefixCls}`,
@@ -354,6 +361,10 @@ export default {
             const oldVal = JSON.stringify(this.currentValue);
             this.currentValue = this.selected = this.tmpSelected = [];
             this.handleClose();
+            if (this.allowInput) {
+                this.query = "";
+                this.$refs.input.currentValue = "";
+            }
             this.emitValue(this.currentValue, oldVal);
             //                this.$broadcast('on-clear');
             this.broadcast("Caspanel", "on-clear");
@@ -366,7 +377,11 @@ export default {
             if (this.visible) {
                 if (!this.filterable) this.handleClose();
             } else {
-                this.onFocus();
+                if (this.customChar) {
+                    this.visible = this.query === this.customChar;
+                } else {
+                    this.onFocus();
+                }
             }
         },
         onFocus() {
@@ -407,6 +422,13 @@ export default {
                 const oldVal = JSON.stringify(this.currentValue);
                 this.currentValue = [this.query];
                 this.emitValue(this.currentValue, oldVal);
+            }
+            if (this.customChar) {
+                this.visible = this.query === this.customChar;
+                if (this.visible) {
+                    this.query = "";
+                    this.$refs.input.value = "";
+                }
             }
         },
         handleSelectItem(index) {
