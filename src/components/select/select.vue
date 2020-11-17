@@ -292,6 +292,18 @@
                 }).filter(Boolean);
             }
 
+            // 允许创建模式下，下拉选项中没有value，将value回显到输入框中
+            if (this.allowCreate && (this.value || this.value === 0)) {
+                let index = this.values.findIndex(el => el.value === this.value);
+                if (index === -1) {
+                    this.values.push({
+                        disabled: false,
+                        label: this.value,
+                        value: this.value
+                    })
+                }
+            }
+
             this.checkUpdateStatus();
         },
         data () {
