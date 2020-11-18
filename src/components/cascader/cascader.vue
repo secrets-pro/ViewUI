@@ -37,7 +37,7 @@
         <transition name="transition-drop">
             <Drop
                 v-show="visible"
-                :class="{ [prefixCls + '-transfer']: transfer }"
+                :class="dropdownCls"
                 ref="drop"
                 :data-transfer="transfer"
                 :transfer="transfer"
@@ -194,12 +194,15 @@ export default {
             type: String
         },
         // 4.0.0
-        capture: {
-            type: Boolean,
-            default() {
-                return !this.$IVIEW ? true : this.$IVIEW.capture;
+         capture: {
+                type: Boolean,
+                default () {
+                    return !this.$IVIEW ? true : this.$IVIEW.capture;
+                }
+            },
+        transferClassName: {
+            type: String
             }
-        }
     },
     data() {
         return {
@@ -351,6 +354,13 @@ export default {
                 if (this.$IVIEW.cascader.arrowSize) {
                     size = this.$IVIEW.cascader.arrowSize;
                 }
+                return size;
+            },
+            dropdownCls () {
+                return {
+                    [prefixCls + '-transfer']: this.transfer,
+                    [this.transferClassName]: this.transferClassName
+                };
             }
             return size;
         }
