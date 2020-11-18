@@ -194,15 +194,15 @@ export default {
             type: String
         },
         // 4.0.0
-         capture: {
-                type: Boolean,
-                default () {
-                    return !this.$IVIEW ? true : this.$IVIEW.capture;
-                }
-            },
+        capture: {
+            type: Boolean,
+            default() {
+                return !this.$IVIEW ? true : this.$IVIEW.capture;
+            }
+        },
         transferClassName: {
             type: String
-            }
+        }
     },
     data() {
         return {
@@ -355,14 +355,15 @@ export default {
                     size = this.$IVIEW.cascader.arrowSize;
                 }
                 return size;
-            },
-            dropdownCls () {
-                return {
-                    [prefixCls + '-transfer']: this.transfer,
-                    [this.transferClassName]: this.transferClassName
-                };
             }
+
             return size;
+        },
+        dropdownCls() {
+            return {
+                [prefixCls + "-transfer"]: this.transfer,
+                [this.transferClassName]: this.transferClassName
+            };
         }
     },
     methods: {

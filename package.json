@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
     "name": "@secrets/view-design",
-    "version": "4.3.2",
-=======
-    "name": "view-design",
     "version": "4.4.0",
->>>>>>> 997339aeaf459730db632028449cf17791d11a44
     "title": "ViewUI",
     "description": "A high quality UI components Library with Vue.js",
     "homepage": "http://www.iviewui.com",
