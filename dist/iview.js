@@ -26879,9 +26879,9 @@ var _tooltip2 = _interopRequireDefault(_tooltip);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: 'TableCell',
+    name: "TableCell",
     components: { Icon: _icon2.default, Checkbox: _checkbox2.default, TableExpand: _expand2.default, TableSlot: _slot2.default, Tooltip: _tooltip2.default },
-    inject: ['tableRoot'],
+    inject: ["tableRoot"],
     props: {
         prefixCls: String,
         row: Object,
@@ -26904,7 +26904,7 @@ exports.default = {
     },
     data: function data() {
         return {
-            renderType: '',
+            renderType: "",
             uid: -1,
             context: this.$parent.$parent.$parent.currentContext,
             showTooltip: false,
@@ -26916,16 +26916,16 @@ exports.default = {
         classes: function classes() {
             var _ref;
 
-            return [String(this.prefixCls) + '-cell', (_ref = {}, (0, _defineProperty3.default)(_ref, String(this.prefixCls) + '-hidden', !this.fixed && this.column.fixed && (this.column.fixed === 'left' || this.column.fixed === 'right')), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + '-cell-ellipsis', this.column.ellipsis || false), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + '-cell-with-expand', this.renderType === 'expand'), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + '-cell-with-selection', this.renderType === 'selection'), _ref)];
+            return [String(this.prefixCls) + "-cell", (_ref = {}, (0, _defineProperty3.default)(_ref, String(this.prefixCls) + "-hidden", !this.fixed && this.column.fixed && (this.column.fixed === "left" || this.column.fixed === "right")), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + "-cell-ellipsis", this.column.ellipsis || false), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + "-cell-with-expand", this.renderType === "expand"), (0, _defineProperty3.default)(_ref, String(this.prefixCls) + "-cell-with-selection", this.renderType === "selection"), _ref)];
         },
         expandCls: function expandCls() {
-            return [String(this.prefixCls) + '-cell-expand', (0, _defineProperty3.default)({}, String(this.prefixCls) + '-cell-expand-expanded', this.expanded)];
+            return [String(this.prefixCls) + "-cell-expand", (0, _defineProperty3.default)({}, String(this.prefixCls) + "-cell-expand-expanded", this.expanded)];
         },
         showChildren: function showChildren() {
             var status = false;
-            if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
+            if (this.renderType === "html" || this.renderType === "normal" || this.renderType === "render" || this.renderType === "slot") {
                 var data = this.row;
-                if (data.children && data.children.length || '_loading' in data) {
+                if (data.children && data.children.length || "_loading" in data) {
                     if (this.column.tree) status = true;
                 }
             }
@@ -26933,21 +26933,21 @@ exports.default = {
         },
         showTreeNode: function showTreeNode() {
             var status = false;
-            if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
+            if (this.renderType === "html" || this.renderType === "normal" || this.renderType === "render" || this.renderType === "slot") {
                 if (this.column.tree && this.treeNode) status = true;
             }
             return status;
         },
         showLevel: function showLevel() {
             var status = false;
-            if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
+            if (this.renderType === "html" || this.renderType === "normal" || this.renderType === "render" || this.renderType === "slot") {
                 if (this.column.tree && this.treeNode) status = true;
             }
             return status;
         },
         treeLevelStyle: function treeLevelStyle() {
             return {
-                'padding-left': this.treeLevel * this.tableRoot.indentSize + 'px'
+                "padding-left": this.treeLevel * this.tableRoot.indentSize + "px"
             };
         },
         childrenExpand: function childrenExpand() {
@@ -26956,7 +26956,13 @@ exports.default = {
         },
         childrenLoading: function childrenLoading() {
             var data = this.tableRoot.getDataByRowKey(this.row._rowKey);
-            return '_loading' in data && data._loading;
+            return "_loading" in data && data._loading;
+        },
+        cdisabled: function cdisabled() {
+            if (this.column.disabled) {
+                return this.column.disabled(this.row[this.column.key]);
+            }
+            return this.disabled;
         }
     },
     methods: {
@@ -26988,24 +26994,24 @@ exports.default = {
             this.$parent.$parent.$parent.toggleTree(this.row._rowKey);
         },
         handleCellClick: function handleCellClick(event) {
-            this.$parent.$parent.$parent.$emit('on-cell-click', this.row, this.column, this.row[this.column.key], event);
+            this.$parent.$parent.$parent.$emit("on-cell-click", this.row, this.column, this.row[this.column.key], event);
         }
     },
     created: function created() {
-        if (this.column.type === 'index') {
-            this.renderType = 'index';
-        } else if (this.column.type === 'selection') {
-            this.renderType = 'selection';
-        } else if (this.column.type === 'html') {
-            this.renderType = 'html';
-        } else if (this.column.type === 'expand') {
-            this.renderType = 'expand';
+        if (this.column.type === "index") {
+            this.renderType = "index";
+        } else if (this.column.type === "selection") {
+            this.renderType = "selection";
+        } else if (this.column.type === "html") {
+            this.renderType = "html";
+        } else if (this.column.type === "expand") {
+            this.renderType = "expand";
         } else if (this.column.render) {
-            this.renderType = 'render';
+            this.renderType = "render";
         } else if (this.column.slot) {
-            this.renderType = 'slot';
+            this.renderType = "slot";
         } else {
-            this.renderType = 'normal';
+            this.renderType = "normal";
         }
     }
 };
@@ -43723,8 +43729,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_191696f4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__ = __webpack_require__(575);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_191696f4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_191696f4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_ef82c9b4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__ = __webpack_require__(575);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_ef82c9b4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_ef82c9b4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 /* script */
 
@@ -43742,8 +43748,8 @@ var __vue_module_identifier__ = null
 
 var Component = Object(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
   __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_cell_vue___default.a,
-  __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_191696f4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__["render"],
-  __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_191696f4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__["staticRenderFns"],
+  __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_ef82c9b4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__["render"],
+  __WEBPACK_IMPORTED_MODULE_1__babel_loader_sourceMap_node_modules_vue_loader_lib_template_compiler_index_id_data_v_ef82c9b4_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_cell_vue__["staticRenderFns"],
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
